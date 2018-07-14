@@ -4,7 +4,7 @@
   "description": "Express middleware to handle the security",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/*.js"
+    "test": "mocha --use_strict ./test/*.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,20 @@
     "basic"
   ],
   "author": "Benco1967",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "basic-auth": "^2.0.0",
+    "config": "^1.30.0",
+    "debug": "^3.1.0",
+    "fs": "0.0.1-security",
+    "http-errors": "^1.6.3",
+    "js-yaml": "^3.12.0",
+    "jsonwebtoken": "^8.2.1",
+    "req-custom": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "custom-params": "git+ssh://git@git.intra-know.com/Yieloo/Copernik/middlewares/custom-params.git",
+    "mocha": "^5.1.1"
+  }
 }
