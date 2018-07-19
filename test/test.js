@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const jwt = require('jsonwebtoken');
 process.env.NODE_ENV = 'test';
+const config = require('config');
 const customParams = require('req-custom')();
 const security = require('../index').security;
 
@@ -8,14 +9,11 @@ const security = require('../index').security;
 
 const parametersBearerWithIssAud = {
   bearer: {
-    sharedSecret: "secret",
+    secret: "secret",
     options: {
       issuer: "test",
       audience: /test/
     }
-  },
-  basic: {
-
   },
   adminGroupRoleMapping: { admin: ["adm"] },
 };
@@ -23,7 +21,7 @@ const bearerSecurityHandler1 = require('../index').Bearer(['adm'], parametersBea
 
 const parametersBearer = {
   bearer: {
-    sharedSecret: "secret",
+    secret: "secret",
     options: {}
   },
   adminGroupRoleMapping: { admin: ["adm"] },
@@ -32,8 +30,6 @@ const bearerSecurityHandler2 = require('../index').Bearer(['adm'], parametersBea
 const bearerSecurityHandler3 = require('../index').Bearer(['usr'], parametersBearer);
 
 const parametersBasic = {
-  basic: {
-  },
   adminGroupRoleMapping: { admin: ["adm"] },
 };
 
@@ -46,9 +42,9 @@ customParams(requestMock);
 const bearerRequestMock = (payload, parameters) => {
   const req = {
     headers : {
-      authorization: "Bearer " + jwt.sign(payload, parameters.bearer.sharedSecret),
+      authorization: "Bearer " + jwt.sign(payload, parameters.bearer.secret),
     },
-    get: (header) => header.match(/^authorization$/i) ? "Bearer " + jwt.sign(payload, parameters.bearer.sharedSecret) : undefined
+    get: (header) => header.match(/^authorization$/i) ? "Bearer " + jwt.sign(payload, parameters.bearer.secret) : undefined
   };
   customParams(req);
   return req;
@@ -174,7 +170,7 @@ const basicRequestMock = (authorization) => {
   return req;
 };
 
-const basicSecurityHandler = require('../lib/groupBased/basicSecurityHandler').Basic(['adm'], parametersBasic);
+const basicSecurityHandler = require('../lib/groupBased/basicSecurityHandler').Basic(['adm'], {...config.get('security'), ...parametersBasic});
 
 describe('Basic Security Handler', function() {
 

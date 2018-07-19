@@ -1,5 +1,6 @@
-bearer:
-  secret: secret
-basic:
-  users: []
-adminGroupRoleMapping: {}
+security:
+  bearer:
+    secret: secret
+  basic:
+    users: []
+  adminGroupRoleMapping: {}

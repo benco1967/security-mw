@@ -1,31 +1,28 @@
-bearer:
-  secret: secret
-  issuer: test
-  audience: test
-basic:
-  users:
-  - userId: admin
-    username: admin
-    password: admin
-    groups:
-      admin:
-      - admin
-adminGroupRoleMapping:
-  all:
-  - adm
-  - mng
-  - snd
-  - usr
-sign:
-  secret: secret
-  payload:
-    Grp:
-      admin:
-      - admin
-      test:
-      - all
-  options:
-    algorithm: HS256
-    expiresIn: 365d
-    issuer: test
-    audience: test
+security:
+  basic:
+    users:
+    - userId: admin
+      username: admin
+      password: admin
+      groups:
+        admin:
+        - admin
+  adminGroupRoleMapping:
+    all:
+    - adm
+    - mng
+    - snd
+    - usr
+  sign:
+    secret: secret
+    payload:
+      Grp:
+        admin:
+        - admin
+        test:
+        - all
+    options:
+      algorithm: HS256
+      expiresIn: 365d
+      issuer: test
+      audience: test
